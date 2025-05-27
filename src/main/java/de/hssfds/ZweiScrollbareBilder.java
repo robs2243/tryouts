@@ -73,6 +73,28 @@ public class ZweiScrollbareBilder extends Application {
         stage.setScene(scene);
         stage.setTitle("Zwei scrollbare Bilder");
         stage.show();
+
+        stage.widthProperty().addListener((obs, oldVal, newVal) -> {
+            double neueBreite = newVal.doubleValue();
+            // Beispiel: Fenster minus ein bisschen Rand/Margin/Platz für anderen Content
+            double spBreite = (neueBreite - 40) / 2;
+            scrollPane1.setPrefViewportWidth(spBreite);
+            scrollPane2.setPrefViewportWidth(spBreite);
+            fitToScreen(imageView1, scrollPane1);
+            fitToScreen(imageView2, scrollPane2);
+        });
+
+        stage.heightProperty().addListener((obs, oldVal, newVal) -> {
+            double neueHoehe = newVal.doubleValue();
+            // Beispiel: Fensterhöhe minus Platz für Button & Margin
+            double spHoehe = neueHoehe - 100;
+            scrollPane1.setPrefViewportHeight(spHoehe);
+            scrollPane2.setPrefViewportHeight(spHoehe);
+            fitToScreen(imageView1, scrollPane1);
+            fitToScreen(imageView2, scrollPane2);
+        });
+
+
     }
 
     private void handleZoom(ScrollEvent e, ImageView iv1, ImageView iv2,
